@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rama Niharika Rudra — Mechanical Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0E1117;
+  --surf:#161B26;
+  --surf2:#1E2535;
+  --bdr:#2A3347;
+  --bdr2:#334060;
+  --txt:#E8EDF5;
+  --mut:#7A8BA8;
+  --faint:#1A2235;
+  --steel:#4A9ECA;
+  --steel-l:#1A3550;
+  --steel-ll:#0D2035;
+  --amber:#D4924A;
+  --amber-l:#2A1E0E;
+  --green:#3DAA6E;
+  --green-l:#0E2218;
+  --grid-line:rgba(74,158,202,0.07);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:'IBM Plex Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size:48px 48px;
+}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(14,17,23,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;}
+.nav-brand{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.5px;color:var(--steel);}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links a{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:var(--mut);text-decoration:none;letter-spacing:.5px;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--steel);}
+.nav-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--steel-l);border:1px solid var(--steel);color:var(--steel);padding:3px 10px;border-radius:3px;letter-spacing:.5px;}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto;padding:100px 48px 60px;}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.hero-eyebrow-line{width:32px;height:2px;background:var(--steel);}
+.hero-eyebrow-txt{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--steel);}
+.hero-name{font-family:'IBM Plex Serif',serif;font-size:clamp(38px,5vw,60px);line-height:1.05;letter-spacing:-1px;margin-bottom:10px;color:var(--txt);}
+.hero-name em{font-style:italic;color:var(--steel);}
+.hero-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--amber);letter-spacing:.5px;margin-bottom:20px;}
+.hero-stmt{font-size:14px;line-height:1.8;color:var(--mut);max-width:480px;margin-bottom:32px;}
+.hero-stats{display:flex;gap:0;margin-bottom:32px;border:1px solid var(--bdr);border-radius:8px;overflow:hidden;}
+.stat-item{flex:1;text-align:center;padding:14px 12px;border-right:1px solid var(--bdr);}
+.stat-item:last-child{border-right:none;}
+.stat-n{font-family:'IBM Plex Mono',monospace;font-size:22px;color:var(--steel);display:block;margin-bottom:2px;}
+.stat-l{font-size:10px;color:var(--mut);font-weight:500;letter-spacing:.5px;text-transform:uppercase;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--steel);color:#0E1117;font-size:12px;font-weight:600;padding:11px 22px;border-radius:4px;text-decoration:none;letter-spacing:.3px;transition:opacity .2s;}
+.btn-primary:hover{opacity:.85;}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--steel);font-size:12px;font-weight:500;padding:11px 22px;border-radius:4px;text-decoration:none;border:1px solid var(--bdr2);letter-spacing:.3px;transition:background .2s,color .2s,border-color .2s;}
+.btn-secondary:hover{border-color:var(--steel);background:var(--steel-ll);}
+
+/* HERO CARD (spec sheet style) */
+.hero-card{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;}
+.hc-header{background:var(--surf2);border-bottom:1px solid var(--bdr);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;}
+.hc-header-title{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);}
+.hc-status{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--green);}
+.hc-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+.hc-body{padding:20px;}
+.hc-avatar{width:52px;height:52px;border-radius:4px;background:var(--steel-l);border:1px solid var(--steel);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Serif',serif;font-size:18px;color:var(--steel);margin-bottom:14px;}
+.hc-name{font-family:'IBM Plex Serif',serif;font-size:15px;color:var(--txt);margin-bottom:2px;}
+.hc-role{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mut);margin-bottom:16px;}
+.hc-divider{height:1px;background:var(--bdr);margin-bottom:16px;}
+.spec-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.spec-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--mut);letter-spacing:.5px;text-transform:uppercase;width:80px;flex-shrink:0;padding-top:1px;}
+.spec-val{font-size:12px;color:var(--txt);line-height:1.5;}
+.spec-val a{color:var(--txt);text-decoration:none;}
+.spec-val a:hover{color:var(--steel);}
+.avail-bar{background:var(--green-l);border:1px solid var(--green);border-radius:4px;padding:7px 14px;display:flex;align-items:center;gap:8px;margin-top:6px;}
+.avail-bar span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--green);}
+.skill-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--steel-l);color:var(--steel);border:1px solid var(--bdr2);border-radius:3px;padding:3px 8px;letter-spacing:.3px;}
+
+/* SECTIONS */
+.section{max-width:1200px;margin:0 auto;padding:70px 48px 0;}
+.sec-header{display:flex;align-items:center;gap:16px;margin-bottom:36px;padding-bottom:16px;border-bottom:1px solid var(--bdr);}
+.sec-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:var(--steel);letter-spacing:2px;background:var(--steel-l);border:1px solid var(--bdr2);padding:4px 10px;border-radius:3px;}
+.sec-title{font-family:'IBM Plex Serif',serif;font-size:clamp(24px,3vw,34px);letter-spacing:-.5px;color:var(--txt);}
+
+/* ABOUT */
+.about-block{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:32px;margin-bottom:16px;}
+.about-block-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.about-block-lbl::after{content:'';flex:1;height:1px;background:var(--bdr);}
+.about-p{font-size:14px;line-height:1.85;color:var(--mut);}
+.about-p+.about-p{margin-top:12px;}
+.about-p strong{color:var(--txt);font-weight:500;}
+
+/* SKILLS */
+.skills-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:60px;}
+.skill-card{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:22px;transition:border-color .2s;}
+.skill-card:hover{border-color:var(--bdr2);}
+.skill-card-hd{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.skill-card-icon{width:32px;height:32px;border-radius:4px;background:var(--steel-l);border:1px solid var(--bdr2);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.skill-card-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.5px;color:var(--steel);text-transform:uppercase;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.skill-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--faint);border:1px solid var(--bdr);border-radius:3px;padding:3px 8px;color:var(--mut);}
+
+/* EXPERIENCE */
+.exp-timeline{position:relative;padding-bottom:60px;}
+.exp-timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--bdr2);}
+.exp-item{position:relative;padding-left:56px;margin-bottom:28px;}
+.exp-dot{position:absolute;left:13px;top:6px;width:14px;height:14px;border-radius:2px;background:var(--surf2);border:2px solid var(--steel);}
+.exp-period{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:var(--steel);letter-spacing:.5px;margin-bottom:8px;}
+.exp-card{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:20px;transition:border-color .2s;}
+.exp-card:hover{border-color:var(--bdr2);}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;gap:16px;}
+.exp-title{font-size:14px;font-weight:600;color:var(--txt);}
+.exp-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:500;color:var(--amber);background:var(--amber-l);border:1px solid rgba(212,146,74,.25);padding:3px 9px;border-radius:3px;white-space:nowrap;letter-spacing:.3px;}
+.exp-company{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mut);margin-bottom:12px;}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.exp-bullets li{font-size:12.5px;color:var(--mut);padding-left:14px;position:relative;line-height:1.55;}
+.exp-bullets li::before{content:'>';position:absolute;left:0;color:var(--steel);font-family:'IBM Plex Mono',monospace;font-size:10px;top:2px;}
+.metric-highlight{display:inline-block;font-weight:600;color:var(--steel);background:var(--steel-l);border-radius:3px;padding:1px 5px;font-family:'IBM Plex Mono',monospace;font-size:11px;}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:60px;}
+.proj-card{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color .25s,transform .2s;}
+.proj-card:hover{border-color:var(--steel);transform:translateY(-2px);}
+.p-accent{height:3px;}
+.p-body{padding:22px;}
+.p-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+.p-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;background:var(--surf2);border:1px solid var(--bdr2);color:var(--mut);padding:4px 10px;border-radius:3px;letter-spacing:.5px;}
+.p-arrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mut);transition:color .2s;opacity:0;}
+.proj-card:hover .p-arrow{opacity:1;color:var(--steel);}
+.p-title{font-family:'IBM Plex Serif',serif;font-size:17px;letter-spacing:-.3px;margin-bottom:4px;color:var(--txt);}
+.p-context{font-size:12px;color:var(--mut);margin-bottom:14px;line-height:1.5;}
+.p-div{height:1px;background:var(--bdr);margin-bottom:12px;}
+.p-meta-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.p-meta-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--faint);border:1px solid var(--bdr);border-radius:3px;padding:3px 8px;color:var(--mut);}
+.p-outcome-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:4px;}
+.p-outcome{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;line-height:1.5;}
+
+/* EDUCATION */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:60px;}
+.edu-card{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:24px;}
+.edu-card-hd{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.edu-card-hd::after{content:'';flex:1;height:1px;background:var(--bdr);}
+.edu-item{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--bdr);}
+.edu-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.edu-deg{font-size:13px;font-weight:600;color:var(--txt);}
+.edu-school{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mut);margin-top:3px;}
+.edu-year{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--steel);margin-top:4px;}
+.cert-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--bdr);}
+.cert-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.cert-icon{width:30px;height:30px;border-radius:4px;background:var(--steel-l);border:1px solid var(--bdr2);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.cert-name{font-size:12.5px;font-weight:600;color:var(--txt);}
+.cert-issuer{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--mut);margin-top:2px;}
+
+/* BEYOND */
+.beyond-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:60px;}
+.fun-card{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:18px 16px;transition:border-color .2s;}
+.fun-card:hover{border-color:var(--bdr2);}
+.fun-emoji{font-size:20px;margin-bottom:8px;}
+.fun-title{font-size:12px;font-weight:600;color:var(--txt);margin-bottom:4px;}
+.fun-text{font-size:11px;color:var(--mut);line-height:1.55;}
+
+/* CONTACT */
+.contact-wrap{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:60px;}
+.contact-hd{background:var(--surf2);border-bottom:1px solid var(--bdr);padding:20px 32px;display:flex;align-items:center;justify-content:space-between;}
+.contact-hd h2{font-family:'IBM Plex Serif',serif;font-size:22px;color:var(--txt);}
+.contact-hd-roles{display:flex;gap:8px;flex-wrap:wrap;}
+.role-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--steel-l);border:1px solid var(--bdr2);color:var(--steel);padding:4px 10px;border-radius:3px;letter-spacing:.3px;}
+.contact-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.contact-links{padding:28px 32px;border-right:1px solid var(--bdr);display:flex;flex-direction:column;gap:10px;}
+.contact-link-item{display:flex;align-items:center;gap:14px;background:var(--faint);border:1px solid var(--bdr);border-radius:6px;padding:14px 18px;text-decoration:none;transition:border-color .2s;}
+.contact-link-item:hover{border-color:var(--steel);}
+.cli-icon{width:34px;height:34px;border-radius:4px;background:var(--steel-l);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.cli-label{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--mut);margin-bottom:2px;}
+.cli-val{font-size:12px;color:var(--txt);font-weight:500;}
+.contact-right{padding:28px 32px;}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.meta-box{background:var(--faint);border:1px solid var(--bdr);border-radius:6px;padding:12px 14px;}
+.meta-box-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--mut);margin-bottom:3px;}
+.meta-box-val{font-size:12px;color:var(--txt);font-weight:500;}
+.geo-box{background:var(--faint);border:1px solid var(--bdr);border-radius:6px;padding:16px;}
+.geo-box-title{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--mut);margin-bottom:12px;}
+.geo-flags{display:flex;gap:6px;flex-wrap:wrap;}
+.geo-flag{display:flex;align-items:center;gap:5px;background:var(--surf2);border:1px solid var(--bdr);border-radius:3px;padding:5px 10px;}
+.geo-flag span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mut);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(8,11,18,.75);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;width:100%;max-width:900px;max-height:90vh;overflow-y:auto;transform:translateY(20px) scale(.98);transition:transform .3s;scrollbar-width:thin;scrollbar-color:var(--bdr2) transparent;}
+.modal-overlay.open .modal{transform:translateY(0) scale(1);}
+.modal-header{position:sticky;top:0;z-index:10;background:var(--surf2);border-bottom:1px solid var(--bdr);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;}
+.modal-hl{display:flex;align-items:center;gap:12px;}
+.m-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border-radius:3px;color:#fff;}
+.m-title{font-family:'IBM Plex Serif',serif;font-size:18px;letter-spacing:-.3px;color:var(--txt);}
+.m-close{background:var(--faint);border:1px solid var(--bdr);border-radius:4px;color:var(--mut);font-size:14px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;}
+.m-close:hover{border-color:var(--steel);color:var(--steel);}
+.m-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bdr);border-bottom:1px solid var(--bdr);}
+.m-meta-item{background:var(--surf);padding:12px 18px;}
+.m-meta-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--mut);margin-bottom:3px;}
+.m-meta-val{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;}
+.m-body{padding:28px;}
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.m-sec{background:var(--faint);border:1px solid var(--bdr);border-radius:6px;padding:18px;}
+.m-sec.full{grid-column:1/-1;}
+.m-sec-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.m-sec-lbl span{width:16px;height:2px;display:inline-block;border-radius:1px;}
+.m-sec-txt{font-size:13px;line-height:1.7;color:var(--mut);}
+.impact-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bdr);}
+.impact-row:last-child{border-bottom:none;}
+.i-lbl{font-size:12px;color:var(--mut);}
+.i-pills{display:flex;gap:8px;align-items:center;}
+.i-before{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:500;background:rgba(100,60,60,.3);border:1px solid rgba(180,80,80,.3);color:#C47A7A;border-radius:3px;padding:3px 10px;}
+.i-after{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;border-radius:3px;padding:3px 10px;border:1px solid;}
+.tool-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+.tool-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--surf2);border:1px solid var(--bdr);border-radius:3px;padding:4px 10px;color:var(--mut);}
+
+/* FOOTER */
+footer{border-top:1px solid var(--bdr);padding:24px 48px;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.foot-name{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mut);}
+.foot-links{display:flex;gap:20px;}
+.foot-links a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mut);text-decoration:none;transition:color .2s;}
+.foot-links a:hover{color:var(--steel);}
+
+@media(max-width:900px){
+  nav{padding:0 20px;}
+  .hero{grid-template-columns:1fr;padding:88px 20px 40px;gap:32px;}
+  .section{padding:50px 20px 0;}
+  .skills-row{grid-template-columns:1fr 1fr;}
+  .projects-grid{grid-template-columns:1fr;}
+  .edu-grid{grid-template-columns:1fr;}
+  .beyond-grid{grid-template-columns:1fr 1fr;}
+  .contact-body{grid-template-columns:1fr;}
+  .contact-links{border-right:none;border-bottom:1px solid var(--bdr);}
+  .m-grid{grid-template-columns:1fr;}
+  .m-meta{grid-template-columns:1fr 1fr;}
+  footer{padding:20px;flex-direction:column;gap:12px;align-items:flex-start;}
+}
+@media(max-width:600px){
+  .skills-row{grid-template-columns:1fr;}
+  .beyond-grid{grid-template-columns:1fr 1fr;}
+  .contact-hd{flex-direction:column;gap:12px;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Portfolio</span>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+    <span class="nav-badge">MECH DESIGN</span>
+  </div>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span class="hero-eyebrow-txt">Mechanical Design Engineer</span></div>
+    <h1 class="hero-name">
+      Rama<br>
+      <em>Niharika</em><br>
+      Rudra
+    </h1>
+    <div class="hero-title">EV Powertrain &nbsp;·&nbsp; GD&amp;T &nbsp;·&nbsp; CREO &nbsp;·&nbsp; Tier-1 Automotive</div>
+    <p class="hero-stmt">Mechanical design engineer with 3+ years at ZF Group delivering 100+ drawings across EV powertrain programs — new part drawings, ECN/change request drawings, supplier drawings, installation drawings, casting designs, and assembly packages for e-motors, transmission housings, and driveline components. Proficient in CREO and GD&amp;T with a strong eye for tolerance stack-up and first-pass acceptance.</p>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-n">100+</span><span class="stat-l">Drawings</span></div>
+      <div class="stat-item"><span class="stat-n">3+</span><span class="stat-l">Years ZF</span></div>
+      <div class="stat-item"><span class="stat-n">4–6</span><span class="stat-l">Programs</span></div>
+      <div class="stat-item"><span class="stat-n">LU</span><span class="stat-l">Available</span></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Get in Touch &rarr;</a>
+      <a href="#projects" class="btn-secondary">View Projects</a>
+    </div>
+  </div>
+  <div>
+    <div class="hero-card">
+      <div class="hc-header">
+        <span class="hc-header-title">Engineer Spec Sheet</span>
+        <div class="hc-status"><div class="hc-dot"></div>Available Immediately</div>
+      </div>
+      <div class="hc-body">
+        <div class="hc-avatar">NR</div>
+        <div class="hc-name">Rama Niharika Rudra</div>
+        <div class="hc-role">Mechanical Design Engineer &nbsp;·&nbsp; Ex ZF Group &nbsp;·&nbsp; Tier-1 Automotive</div>
+        <div class="hc-divider"></div>
+        <div class="spec-row"><span class="spec-lbl">Location</span><span class="spec-val">Luxembourg</span></div>
+        <div class="spec-row"><span class="spec-lbl">Email</span><span class="spec-val"><a href="/cdn-cgi/l/email-protection#bfd1d6d7decdd6d4decdcadbcddeffd8d2ded6d391dcd0d2"><span class="__cf_email__" data-cfemail="9bf5f2f3fae9f2f0fae9eeffe9fadbfcf6faf2f7b5f8f4f6">[email&#160;protected]</span></a></span></div>
+        <div class="spec-row"><span class="spec-lbl">Phone</span><span class="spec-val"><a href="tel:+352661601616">+352 661 601 616</a></span></div>
+        <div class="spec-row"><span class="spec-lbl">LinkedIn</span><span class="spec-val"><a href="https://linkedin.com/in/niharikarudra" target="_blank">linkedin.com/in/niharikarudra</a></span></div>
+        <div class="spec-row"><span class="spec-lbl">Licence</span><span class="spec-val">Category B</span></div>
+        <div class="hc-divider"></div>
+        <div class="avail-bar"><div class="hc-dot"></div><span>Open to: LU &nbsp;·&nbsp; BE &nbsp;·&nbsp; DE &nbsp;·&nbsp; FR &nbsp;·&nbsp; Remote</span></div>
+        <div style="margin-top:10px;">
+          <div class="skill-chips">
+            <span class="chip">CREO</span>
+            <span class="chip">GD&amp;T</span>
+            <span class="chip">APQP</span>
+            <span class="chip">Windchill</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="about" class="section">
+  <div class="sec-header"><span class="sec-tag">01 — About</span><h2 class="sec-title">Background</h2></div>
+  <div class="about-block" style="margin-bottom:16px;">
+    <div class="about-block-lbl">Engineering Background</div>
+    <p class="about-p">I trained as a mechanical engineer, completed a <strong>Master's in Design &amp; Engineering at Politecnico di Milano</strong>, and went on to spend three years at <strong>ZF Group</strong> as a design engineer in the EV Powertrain division — one of the most technically demanding environments in Tier-1 automotive. My day-to-day was component drawings, GD&amp;T callouts, tolerance stack-ups, APQP documentation, and making sure parts actually fit together the first time.</p>
+    <p class="about-p" style="margin-top:12px;">Before ZF, I worked in product design at <strong>PRM DESIGN in Italy</strong> — plastic product design, toy mechanisms, prototyping, and DFM reviews. That experience taught me to think about geometry and manufacturability together, not separately. It's a discipline that shaped how I approach every drawing I create.</p>
+    <p class="about-p" style="margin-top:12px;">I think carefully about <strong>tolerance chains, interface geometry, and drawing clarity</strong> — not just whether a part is technically correct, but whether it communicates clearly to manufacturing. That combination of design precision and documentation discipline is what I bring to mechanical design roles.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:60px;">
+    <div class="about-block" style="margin-bottom:0;">
+      <div class="about-block-lbl">Domain</div>
+      <p class="about-p" style="font-size:13px;">EV Powertrain &nbsp;·&nbsp; E-Motor &nbsp;·&nbsp; Transmission &nbsp;·&nbsp; Driveline &nbsp;·&nbsp; Consumer Products</p>
+    </div>
+    <div class="about-block" style="margin-bottom:0;">
+      <div class="about-block-lbl">Standards</div>
+      <p class="about-p" style="font-size:13px;">IATF 16949 &nbsp;·&nbsp; ISO 9001 &nbsp;·&nbsp; ASME Y14.5 GD&amp;T &nbsp;·&nbsp; APQP/PPAP</p>
+    </div>
+    <div class="about-block" style="margin-bottom:0;">
+      <div class="about-block-lbl">Methods</div>
+      <p class="about-p" style="font-size:13px;">DFM &nbsp;·&nbsp; Tolerance Stack-up &nbsp;·&nbsp; Drawing Audit &nbsp;·&nbsp; Prototype Review &nbsp;·&nbsp; FMEA</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="section">
+  <div class="sec-header"><span class="sec-tag">02 — Skills</span><h2 class="sec-title">Technical Toolbox</h2></div>
+  <div class="skills-row">
+    <div class="skill-card">
+      <div class="skill-card-hd"><div class="skill-card-icon">✏️</div><span class="skill-card-title">CAD</span></div>
+      <div class="skill-tags">
+        <span class="skill-tag">CREO Parametric</span>
+        <span class="skill-tag">SolidWorks — Intermediate</span>
+        <span class="skill-tag">CATIA V5/V6 — Intermediate</span>
+        <span class="skill-tag">AutoCAD</span>
+        <span class="skill-tag">2D Drafting</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-hd"><div class="skill-card-icon">📐</div><span class="skill-card-title">GD&amp;T / Tolerance</span></div>
+      <div class="skill-tags">
+        <span class="skill-tag">ASME Y14.5 GD&amp;T</span>
+        <span class="skill-tag">Tolerance Stack-up</span>
+        <span class="skill-tag">Fits &amp; Clearances</span>
+        <span class="skill-tag">Drawing Audit</span>
+        <span class="skill-tag">Interface Analysis</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-hd"><div class="skill-card-icon">⚙️</div><span class="skill-card-title">Manufacturing</span></div>
+      <div class="skill-tags">
+        <span class="skill-tag">Casting Design</span>
+        <span class="skill-tag">Sheet Metal</span>
+        <span class="skill-tag">DFM Reviews</span>
+        <span class="skill-tag">Plastic Moulding</span>
+        <span class="skill-tag">Prototyping</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-hd"><div class="skill-card-icon">📋</div><span class="skill-card-title">PLM / Quality</span></div>
+      <div class="skill-tags">
+        <span class="skill-tag">Windchill PLM</span>
+        <span class="skill-tag">SAP</span>
+        <span class="skill-tag">APQP / PPAP</span>
+        <span class="skill-tag">FMEA</span>
+        <span class="skill-tag">IATF 16949</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="section">
+  <div class="sec-header"><span class="sec-tag">03 — Experience</span><h2 class="sec-title">Work History</h2></div>
+  <div class="exp-timeline">
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-period">JAN 2023 – JUN 2024</div>
+      <div class="exp-card">
+        <div class="exp-header"><div class="exp-title">Senior Engineer — Design &amp; Process</div><span class="exp-tag">ZF GROUP · TIER-1</span></div>
+        <div class="exp-company">ZF Group, India &nbsp;·&nbsp; EV Powertrain Division</div>
+        <ul class="exp-bullets">
+          <li>Delivered <span class="metric-highlight">100+</span> drawings across new parts, ECN/change requests, supplier drawings, installation drawings, castings, and assembly packages</li>
+          <li><span class="metric-highlight">~15% improvement</span> in first-pass drawing acceptance via systematic GD&amp;T reviews and tolerance stack-up corrections</li>
+          <li><span class="metric-highlight">~20% reduction</span> in document retrieval errors via structured Windchill PLM change control and ECN discipline</li>
+          <li>Led design reviews across 4–6 concurrent APQP programs — e-motors, transmission housings, driveline components</li>
+          <li>Introduced pre-release drawing checkpoint; fed learnings into team GD&amp;T guidelines</li>
+          <li>Owned engineering change management across concurrent programs in Windchill and SAP</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-period">JUN 2021 – JAN 2023</div>
+      <div class="exp-card">
+        <div class="exp-header"><div class="exp-title">Engineer — Design &amp; Process</div><span class="exp-tag">ZF GROUP · TIER-1</span></div>
+        <div class="exp-company">ZF Group, India &nbsp;·&nbsp; EV Powertrain Division</div>
+        <ul class="exp-bullets">
+          <li>Delivered new part drawings, supplier drawings, installation drawings, casting designs, and assembly packages across e-motor and transmission programs</li>
+          <li>Conducted GD&amp;T callout definition and tolerance stack-up analysis for castings, machined parts, and assembly interfaces</li>
+          <li>Managed change request drawings (ECNs) — revision control, re-release, and Windchill/SAP updates</li>
+          <li>Coordinated PPAP submissions across design, manufacturing, and quality — achieving zero-defect approvals</li>
+          <li>Authored SOPs and work instructions in Windchill; maintained drawing revision discipline across live programs</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-period">NOV 2019 – MAR 2020</div>
+      <div class="exp-card">
+        <div class="exp-header"><div class="exp-title">Product Designer — Design Standardisation</div><span class="exp-tag">PRM DESIGN · ITALY</span></div>
+        <div class="exp-company">PRM DESIGN Srl., Milan, Italy</div>
+        <ul class="exp-bullets">
+          <li>Designed plastic consumer products — toy mechanisms, housings, and moulded assemblies — in an Italian product studio</li>
+          <li><span class="metric-highlight">10–15% reduction</span> in prototype rework through manufacturability reviews and DFM feasibility assessments</li>
+          <li>Coordinated across design and prototyping teams on multiple parallel product development initiatives</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-period">NOV 2016 – SEP 2017</div>
+      <div class="exp-card">
+        <div class="exp-header"><div class="exp-title">GIS Engineer — Data Quality</div><span class="exp-tag">RMSI · INDIA</span></div>
+        <div class="exp-company">RMSI Pvt Ltd, India</div>
+        <ul class="exp-bullets">
+          <li>Applied SOP-driven validation and KPI-based quality checks to enhance data reliability across client datasets</li>
+          <li>Improved delivery accuracy across multiple parallel client projects</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section">
+  <div class="sec-header"><span class="sec-tag">04 — Projects</span><h2 class="sec-title">Design Work</h2></div>
+  <div class="projects-grid">
+
+    <div class="proj-card" onclick="openModal(0)">
+      <div class="p-accent" style="background:#4A9ECA;"></div>
+      <div class="p-body">
+        <div class="p-top">
+          <span class="p-badge">01 — ZF GROUP</span>
+          <span class="p-arrow">↗</span>
+        </div>
+        <div class="p-title">E-Motor Housing Design</div>
+        <div class="p-context">EV Powertrain &nbsp;·&nbsp; Casting &amp; Machined Interfaces</div>
+        <div class="p-div"></div>
+        <div class="p-meta-row">
+          <span class="p-meta-tag">CREO</span><span class="p-meta-tag">GD&amp;T</span><span class="p-meta-tag">Tolerance Stack-up</span><span class="p-meta-tag">Windchill</span>
+        </div>
+        <div class="p-outcome-label">Key Outcome</div>
+        <div class="p-outcome" style="color:#4A9ECA;">~15% first-pass improvement &nbsp;·&nbsp; fitment issues resolved</div>
+      </div>
+    </div>
+
+    <div class="proj-card" onclick="openModal(1)">
+      <div class="p-accent" style="background:#D4924A;"></div>
+      <div class="p-body">
+        <div class="p-top">
+          <span class="p-badge">02 — ZF GROUP</span>
+          <span class="p-arrow">↗</span>
+        </div>
+        <div class="p-title">Transmission Assembly Package</div>
+        <div class="p-context">Driveline &nbsp;·&nbsp; Casting Design &amp; Drawing Release</div>
+        <div class="p-div"></div>
+        <div class="p-meta-row">
+          <span class="p-meta-tag">CREO</span><span class="p-meta-tag">Casting Design</span><span class="p-meta-tag">APQP</span><span class="p-meta-tag">PPAP</span>
+        </div>
+        <div class="p-outcome-label">Key Outcome</div>
+        <div class="p-outcome" style="color:#D4924A;">Zero-defect PPAP &nbsp;·&nbsp; ~90% on-time milestone delivery</div>
+      </div>
+    </div>
+
+    <div class="proj-card" onclick="openModal(2)">
+      <div class="p-accent" style="background:#3DAA6E;"></div>
+      <div class="p-body">
+        <div class="p-top">
+          <span class="p-badge">03 — PRM DESIGN · ITALY</span>
+          <span class="p-arrow">↗</span>
+        </div>
+        <div class="p-title">Plastic Product Design</div>
+        <div class="p-context">Consumer Products &nbsp;·&nbsp; Toy Mechanisms &amp; Housings</div>
+        <div class="p-div"></div>
+        <div class="p-meta-row">
+          <span class="p-meta-tag">CREO</span><span class="p-meta-tag">SolidWorks</span><span class="p-meta-tag">Plastic Moulding</span><span class="p-meta-tag">DFM</span><span class="p-meta-tag">Prototyping</span>
+        </div>
+        <div class="p-outcome-label">Key Outcome</div>
+        <div class="p-outcome" style="color:#3DAA6E;">10–15% rework reduction &nbsp;·&nbsp; DFM reviews embedded</div>
+      </div>
+    </div>
+
+    <div class="proj-card" onclick="openModal(3)">
+      <div class="p-accent" style="background:#8B6FB5;"></div>
+      <div class="p-body">
+        <div class="p-top">
+          <span class="p-badge">04 — ZF GROUP</span>
+          <span class="p-arrow">↗</span>
+        </div>
+        <div class="p-title">Drawing Quality &amp; GD&amp;T Audit</div>
+        <div class="p-context">Multi-program &nbsp;·&nbsp; Design Review Improvement</div>
+        <div class="p-div"></div>
+        <div class="p-meta-row">
+          <span class="p-meta-tag">GD&amp;T Audit</span><span class="p-meta-tag">5 Whys</span><span class="p-meta-tag">FMEA</span><span class="p-meta-tag">Drawing Standards</span>
+        </div>
+        <div class="p-outcome-label">Key Outcome</div>
+        <div class="p-outcome" style="color:#8B6FB5;">Review cycles 3–4 → 1–2 &nbsp;·&nbsp; ~15% NCR reduction</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="education" class="section">
+  <div class="sec-header"><span class="sec-tag">05 — Education</span><h2 class="sec-title">Academic &amp; Certifications</h2></div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-card-hd">Academic</div>
+      <div class="edu-item">
+        <div class="edu-deg">M.Sc. Design &amp; Engineering</div>
+        <div class="edu-school">Politecnico di Milano, Italy</div>
+        <div class="edu-year">2017 – 2020</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-deg">B.Tech. Mechanical Engineering</div>
+        <div class="edu-school">Jawaharlal Nehru Technological University, India</div>
+        <div class="edu-year">2012 – 2016</div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-hd">Certifications</div>
+      <div class="cert-item"><div class="cert-icon">⭐</div><div><div class="cert-name">Lean Six Sigma Black Belt (AI-Enabled)</div><div class="cert-issuer">Benchmark Six Sigma</div></div></div>
+      <div class="cert-item"><div class="cert-icon">⭐</div><div><div class="cert-name">Lean Six Sigma Green Belt (AI-Enabled)</div><div class="cert-issuer">Benchmark Six Sigma</div></div></div>
+      <div class="cert-item"><div class="cert-icon">🔧</div><div><div class="cert-name">Excellence in CI Leadership (ECIL)</div><div class="cert-issuer">Benchmark Six Sigma</div></div></div>
+      <div class="cert-item"><div class="cert-icon">📊</div><div><div class="cert-name">Business Analytics Foundation</div><div class="cert-issuer">Benchmark Six Sigma</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-header"><span class="sec-tag">★ — Personal</span><h2 class="sec-title">Beyond the CV</h2></div>
+  <div class="beyond-grid">
+    <div class="fun-card"><div class="fun-emoji">🇱🇺</div><div class="fun-title">Moved to Luxembourg</div><div class="fun-text">Followed love, built a life here. Best decision.</div></div>
+    <div class="fun-card"><div class="fun-emoji">🇩🇪</div><div class="fun-title">Learning German</div><div class="fun-text">A2 is the goal. Integration matters to me.</div></div>
+    <div class="fun-card"><div class="fun-emoji">📄</div><div class="fun-title">Compulsive doc cleaner</div><div class="fun-text">Can't leave a messy PDF alone. Fixing it is not optional.</div></div>
+    <div class="fun-card"><div class="fun-emoji">📷</div><div class="fun-title">Fujifilm X100VI</div><div class="fun-text">Streets, light, quiet moments. Photography slows me down.</div></div>
+    <div class="fun-card"><div class="fun-emoji">🎨</div><div class="fun-title">Freelance graphic designer</div><div class="fun-text">The eye for layout never fully switched off.</div></div>
+    <div class="fun-card"><div class="fun-emoji">🌿</div><div class="fun-title">Plant parent</div><div class="fun-text">More plants than furniture. A discipline I take seriously.</div></div>
+    <div class="fun-card"><div class="fun-emoji">🧗</div><div class="fun-title">Hiker &amp; traveller</div><div class="fun-text">Trails or new streets. How I reset and get curious.</div></div>
+    <div class="fun-card"><div class="fun-emoji">🍲</div><div class="fun-title">Cook by instinct</div><div class="fun-text">Mostly Indian, sometimes Italian. No recipes, just taste.</div></div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="sec-header"><span class="sec-tag">06 — Contact</span><h2 class="sec-title">Get in Touch</h2></div>
+  <div class="contact-wrap">
+    <div class="contact-hd">
+      <h2>Open to new opportunities</h2>
+      <div class="contact-hd-roles">
+        <span class="role-tag">Mechanical Design Engineer</span>
+        <span class="role-tag">Design Engineer — EV / Powertrain</span>
+        <span class="role-tag">CAD Engineer</span>
+        <span class="role-tag">Product Design Engineer</span>
+      </div>
+    </div>
+    <div class="contact-body">
+      <div class="contact-links">
+        <a href="/cdn-cgi/l/email-protection#fa9493929b8893919b888f9e889bba9d979b9396d4999597" class="contact-link-item">
+          <div class="cli-icon">✉️</div>
+          <div><div class="cli-label">Email</div><div class="cli-val"><span class="__cf_email__" data-cfemail="422c2b2a23302b2923303726302302252f232b2e6c212d2f">[email&#160;protected]</span></div></div>
+        </a>
+        <a href="tel:+352661601616" class="contact-link-item">
+          <div class="cli-icon">📞</div>
+          <div><div class="cli-label">Phone</div><div class="cli-val">+352 661 601 616</div></div>
+        </a>
+        <a href="https://linkedin.com/in/niharikarudra" target="_blank" class="contact-link-item">
+          <div class="cli-icon">🔗</div>
+          <div><div class="cli-label">LinkedIn</div><div class="cli-val">linkedin.com/in/niharikarudra</div></div>
+        </a>
+      </div>
+      <div class="contact-right">
+        <div class="meta-grid">
+          <div class="meta-box"><div class="meta-box-lbl">📍 Location</div><div class="meta-box-val">Luxembourg</div></div>
+          <div class="meta-box"><div class="meta-box-lbl">⚡ Available</div><div class="meta-box-val">Immediately</div></div>
+          <div class="meta-box"><div class="meta-box-lbl">🌍 Open to</div><div class="meta-box-val">LU &middot; BE &middot; DE &middot; FR &middot; Remote</div></div>
+          <div class="meta-box"><div class="meta-box-lbl">🚗 Licence</div><div class="meta-box-val">Category B</div></div>
+        </div>
+        <div class="geo-box">
+          <div class="geo-box-title">Global Exposure</div>
+          <div class="geo-flags">
+            <div class="geo-flag">🇮🇳 <span>India</span></div>
+            <div class="geo-flag">🇮🇹 <span>Italy</span></div>
+            <div class="geo-flag">🇩🇪 <span>Germany</span></div>
+            <div class="geo-flag">🇺🇸 <span>USA</span></div>
+            <div class="geo-flag">🇨🇳 <span>China</span></div>
+            <div class="geo-flag">🇱🇺 <span>Luxembourg</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="max-width:1200px;margin:0 auto;">
+  <footer>
+    <span class="foot-name">RAMA NIHARIKA RUDRA &nbsp;·&nbsp; MECHANICAL DESIGN</span>
+    <div class="foot-links">
+      <a href="https://linkedin.com/in/niharikarudra" target="_blank">LinkedIn ↗</a>
+      <a href="/cdn-cgi/l/email-protection#046a6d6c65766d6f657671607665446369656d682a676b69"><span class="__cf_email__" data-cfemail="3b5552535a4952505a494e5f495a7b5c565a525715585456">[email&#160;protected]</span></a>
+      <a href="tel:+352661601616">+352 661 601 616</a>
+    </div>
+  </footer>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-hl"><div class="m-badge" id="mBadge"></div><h2 class="m-title" id="mTitle"></h2></div>
+      <button class="m-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="m-meta" id="mMeta"></div>
+    <div class="m-body" id="mBody"></div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const P=[
+  {
+    n:"01",ac:"#4A9ECA",lc:"#1A3550",
+    t:"E-Motor Housing Design",
+    tl:["CREO Parametric","GD&T","Tolerance Stack-up","Windchill PLM","FMEA","IATF 16949"],
+    m:{role:"Design Engineer",scope:"E-Motor & Driveline Components",dur:"Across Multiple Programs",ev:"ZF Work Experience"},
+    ctx:"EV powertrain programs at ZF required delivery of production-ready e-motor housing drawings — casting designs with precision machined interfaces for bearing seats, shaft sealing faces, and cover mating surfaces.",
+    prob:"Recurring fitment issues during prototype assembly. Tolerance stack-ups were exceeding functional limits, with GD&T callouts missing or ambiguous on approximately 60% of audited drawings.",
+    app:"Conducted GD&T reviews and tolerance stack-up calculations across 15–20 components. Used 5 Whys to identify root cause: no standardised GD&T requirement at assembly interfaces. Audited existing drawing set and prioritised critical fit interfaces.",
+    sol:"Updated GD&T callouts and tightened tolerance limits at critical fit interfaces. Introduced a pre-release drawing checkpoint. Revised affected drawings in Windchill and fed learnings into team drawing standards guidelines.",
+    res:[{l:"First-pass Acceptance",b:"Frequent review failures",a:"~15% improvement"},{l:"Fitment Issues at Assembly",b:"Recurring at interfaces",a:"~10% reduction"},{l:"GD&T Completeness",b:"~60% incomplete",a:"Critical interfaces defined"}]
+  },
+  {
+    n:"02",ac:"#D4924A",lc:"#2A1E0E",
+    t:"Transmission Assembly Package",
+    tl:["CREO","Casting Design","APQP","PPAP","Windchill PLM","SAP","IATF 16949"],
+    m:{role:"Component Owner",scope:"4–6 Concurrent APQP Programs",dur:"Jun 2021 – Jun 2024",ev:"ZF Work Experience"},
+    ctx:"ZF EV powertrain programs required concurrent delivery of transmission housing components — casting designs, bracket sub-assemblies, and cover plates — across programs with overlapping timelines and cross-location supplier inputs.",
+    prob:"Managing 4–6 concurrent programs with cross-location dependencies (Germany, US, China). Late supplier inputs and time zone gaps threatened APQP milestone delivery. Assembly constraint conflicts emerged late in design cycles.",
+    app:"Took ownership of component-level delivery and APQP stage gate readiness. Maintained active follow-up on open drawing actions. Reviewed assembly constraints early through interface coordination sessions with manufacturing and quality.",
+    sol:"Resolved critical supplier misalignment through joint cross-functional session. Maintained PPAP documentation readiness in Windchill. Introduced drawing freeze checkpoints to prevent late-stage constraint conflicts.",
+    res:[{l:"APQP Milestone Delivery",b:"4–6 programs concurrent",a:"~90% on-time"},{l:"PPAP Gate Quality",b:"Multiple programs",a:"Zero-defect approvals"},{l:"Supplier Misalignment",b:"Late inputs, rework",a:"Resolved via joint sessions"}]
+  },
+  {
+    n:"03",ac:"#3DAA6E",lc:"#0E2218",
+    t:"Plastic Product Design",
+    tl:["CREO","SolidWorks","Plastic Moulding Design","DFM","Prototyping","Design Standardisation"],
+    m:{role:"Product Designer",scope:"Multiple Consumer Products",dur:"Nov 2019 – Mar 2020",ev:"PRM DESIGN, Italy"},
+    ctx:"PRM DESIGN in Milan is a product design studio working on consumer goods — toy mechanisms, plastic housings, and small-scale assemblies. The design environment was fast-paced, with multiple products in parallel development at any time.",
+    prob:"Prototype rework was common due to manufacturability issues identified late — after physical prototypes had been built. DFM considerations were not embedded early enough in the design process.",
+    app:"Conducted DFM reviews at design stage rather than post-prototype. Assessed draft angles, wall thickness uniformity, gate locations, and parting line choices before committing to tooling. Coordinated directly with the prototyping team during review.",
+    sol:"Standardised a pre-prototype DFM checklist. Flagged design risks earlier, reducing the volume of rework iterations. Coordinated parallel design reviews across multiple products to share learnings across the team.",
+    res:[{l:"Prototype Rework",b:"Frequent late-stage changes",a:"10–15% reduction"},{l:"DFM Review Timing",b:"Post-prototype",a:"Pre-prototype embedded"},{l:"Cross-product Learning",b:"Siloed per product",a:"Shared review structure"}]
+  },
+  {
+    n:"04",ac:"#8B6FB5",lc:"#1E1530",
+    t:"Drawing Quality & GD&T Audit",
+    tl:["GD&T Audit","5 Whys","FMEA","PDCA","Drawing Standards","Windchill"],
+    m:{role:"Active Contributor",scope:"~15–40 Drawings Audited",dur:"6–8 Months",ev:"ZF Work Experience"},
+    ctx:"Across multiple APQP programs at ZF, design reviews were running 3–4 iteration cycles before approval. Repeat comments were clustering around the same categories — tolerance ambiguity, missing GD&T callouts, and documentation mismatches — pointing to a structural process gap rather than individual drawing errors.",
+    prob:"~60–70% of drawings received repeat comments in the same category — tolerance ambiguity, missing GD&T callouts, and documentation revision mismatches. No standardised drawing submission-readiness definition existed.",
+    app:"Reviewed past design review comment logs and grouped issues into categories: tolerance-related, GD&T-related, and documentation gaps. Applied 5 Whys to identify root causes. Prioritised critical assembly interfaces as the highest-risk areas and worked outward from there.",
+    sol:"Developed a pre-release drawing checklist. Standardised GD&T callout expectations at assembly interfaces. Introduced a review readiness gate. Embedded improvements into SOP updates and review comment templates in Windchill.",
+    res:[{l:"Design Review Cycles",b:"3–4 iterations average",a:"Target: 1–2 cycles"},{l:"Repeat Comment Rate",b:"~60–70% of drawings",a:"Target: below 30%"},{l:"Pre-release Validation",b:"No structured gate",a:"Checklist gate defined"}]
+  }
+];
+
+function openModal(idx){
+  const p=P[idx];
+  document.getElementById('mBadge').textContent=p.n;
+  document.getElementById('mBadge').style.background=p.ac;
+  document.getElementById('mTitle').textContent=p.t;
+  document.getElementById('mMeta').innerHTML=
+    '<div class="m-meta-item"><div class="m-meta-lbl">Role</div><div class="m-meta-val" style="color:'+p.ac+'">'+p.m.role+'</div></div>'+
+    '<div class="m-meta-item"><div class="m-meta-lbl">Scope</div><div class="m-meta-val" style="color:'+p.ac+'">'+p.m.scope+'</div></div>'+
+    '<div class="m-meta-item"><div class="m-meta-lbl">Duration</div><div class="m-meta-val" style="color:'+p.ac+'">'+p.m.dur+'</div></div>'+
+    '<div class="m-meta-item"><div class="m-meta-lbl">Evidence</div><div class="m-meta-val" style="color:'+p.ac+'">'+p.m.ev+'</div></div>';
+  var res=p.res.map(function(r){
+    return '<div class="impact-row"><div class="i-lbl">'+r.l+'</div><div class="i-pills"><span class="i-before">Before: '+r.b+'</span><span class="i-after" style="color:'+p.ac+';background:'+p.lc+';border-color:'+p.ac+'">After: '+r.a+'</span></div></div>';
+  }).join('');
+  var tools=p.tl.map(function(t){return '<span class="tool-tag">'+t+'</span>';}).join('');
+  document.getElementById('mBody').innerHTML=
+    '<div class="m-grid">'+
+      '<div class="m-sec"><div class="m-sec-lbl" style="color:'+p.ac+'"><span style="background:'+p.ac+'"></span>Context</div><p class="m-sec-txt">'+p.ctx+'</p></div>'+
+      '<div class="m-sec"><div class="m-sec-lbl" style="color:'+p.ac+'"><span style="background:'+p.ac+'"></span>Problem</div><p class="m-sec-txt">'+p.prob+'</p></div>'+
+      '<div class="m-sec"><div class="m-sec-lbl" style="color:'+p.ac+'"><span style="background:'+p.ac+'"></span>Approach</div><p class="m-sec-txt">'+p.app+'</p></div>'+
+      '<div class="m-sec"><div class="m-sec-lbl" style="color:'+p.ac+'"><span style="background:'+p.ac+'"></span>Solution</div><p class="m-sec-txt">'+p.sol+'</p></div>'+
+      '<div class="m-sec full"><div class="m-sec-lbl" style="color:'+p.ac+'"><span style="background:'+p.ac+'"></span>Impact</div><div>'+res+'</div></div>'+
+      '<div class="m-sec full"><div class="m-sec-lbl" style="color:'+p.ac+'"><span style="background:'+p.ac+'"></
